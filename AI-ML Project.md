@@ -1,4 +1,4 @@
-# Implementation Guide: Anomaly-Based Intrusion Detection Using Machine Learning on the CICIDS2017 Dataset
+# Anomaly-Based Intrusion Detection Using Machine Learning on the CICIDS2017 Dataset
 
 
 ## 1. Setting Up the Development Environment
