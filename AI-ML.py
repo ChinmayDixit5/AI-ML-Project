@@ -1,11 +1,9 @@
-# Implementation Guide: Anomaly-Based Intrusion Detection Using Machine Learning on the CICIDS2017 Dataset
+# Anomaly-Based Intrusion Detection Using Machine Learning on the CICIDS2017 Dataset
 
 
 ## 1. Setting Up the Development Environment
 
-First, let's set up a Python environment with all the necessary libraries:
 
-```python
 # implementation_setup.py
 import sys
 import subprocess
@@ -33,14 +31,13 @@ def install_required_packages():
 
 if __name__ == "__main__":
     install_required_packages()
-```
+
 
 ## 2. Downloading and Loading the CICIDS2017 Dataset
 
 The CICIDS2017 dataset is large and typically split into multiple CSV files. Here's how to download and load it:
 
-```python
-# data_loader.py
+
 import os
 import pandas as pd
 import numpy as np
@@ -49,18 +46,15 @@ from io import BytesIO
 from zipfile import ZipFile
 
 def download_cicids2017():
-    """
+
     Download the CICIDS2017 dataset.
     Note: This is a placeholder. You may need to adjust the URL or download method.
-    """
-    # The dataset is typically available from the Canadian Institute for Cybersecurity
-    # You may need to register or use a different source
     print("Please download the CICIDS2017 dataset from the Canadian Institute for Cybersecurity")
     print("URL: https://www.unb.ca/cic/datasets/ids-2017.html")
     print("After downloading, extract the files to a folder named 'data' in your project directory")
 
 def load_cicids2017(data_path='./data'):
-    """
+   
     Load the CICIDS2017 dataset from CSV files.
     
     Args:
@@ -68,17 +62,17 @@ def load_cicids2017(data_path='./data'):
         
     Returns:
         A pandas DataFrame containing the combined dataset
-    """
+ 
     # List of CSV files in the dataset
     csv_files = [
-        'Monday-WorkingHours.pcap_ISCX.csv',
-        'Tuesday-WorkingHours.pcap_ISCX.csv',
-        'Wednesday-workingHours.pcap_ISCX.csv',
-        'Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv',
-        'Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv',
-        'Friday-WorkingHours-Morning.pcap_ISCX.csv',
-        'Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv',
-        'Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv'
+        Monday-WorkingHours.pcap_ISCX.csv,
+        Tuesday-WorkingHours.pcap_ISCX.csv,
+        Wednesday-workingHours.pcap_ISCX.csv,
+        Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv,
+        Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv,
+        Friday-WorkingHours-Morning.pcap_ISCX.csv,
+        Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv,
+        Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv
     ]
     
     # Initialize an empty list to store DataFrames
@@ -113,28 +107,26 @@ def load_cicids2017(data_path='./data'):
 
 if __name__ == "__main__":
     download_cicids2017()
-    # Uncomment the line below after downloading the dataset
-    # df = load_cicids2017()
-```
+     df = load_cicids2017()
+
 
 ## 3. Exploratory Data Analysis (EDA)
 
-Let's explore the dataset to understand its characteristics:
 
-```python
-# exploratory_analysis.py
+
+# exploratory_analysis
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 def explore_dataset(df):
-    """
+    
     Perform exploratory data analysis on the CICIDS2017 dataset.
     
     Args:
         df: Pandas DataFrame containing the dataset
-    """
+    
     # Basic information
     print("Dataset shape:", df.shape)
     print("\nData types:")
@@ -184,17 +176,14 @@ def explore_dataset(df):
 
 if __name__ == "__main__":
     # Load the dataset
-    # Assuming you've already run data_loader.py
+   
     df = pd.read_csv('./data/combined_dataset.csv')  # Adjust path as needed
     explore_dataset(df)
-```
+
 
 ## 4. Data Preprocessing
 
-Now, let's preprocess the data for machine learning:
 
-```python
-# data_preprocessing.py
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler, LabelEncoder
@@ -202,7 +191,7 @@ from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
 
 def preprocess_data(df, binary_classification=True):
-    """
+    
     Preprocess the CICIDS2017 dataset for machine learning.
     
     Args:
@@ -211,7 +200,7 @@ def preprocess_data(df, binary_classification=True):
         
     Returns:
         X_train, X_test, y_train, y_test: Preprocessed data splits
-    """
+    
     # Make a copy to avoid modifying the original dataframe
     data = df.copy()
     
@@ -267,21 +256,16 @@ def preprocess_data(df, binary_classification=True):
 
 if __name__ == "__main__":
     # Load the dataset
-    # Assuming you've already run data_loader.py
-    df = pd.read_csv('./data/combined_dataset.csv')  # Adjust path as needed
+    df = pd.read_csv('./data/combined_dataset.csv')  
     X_train, X_test, y_train, y_test, classes = preprocess_data(df)
     
     print(f"Training set shape: {X_train.shape}")
     print(f"Testing set shape: {X_test.shape}")
     print(f"Class labels: {classes}")
-```
+
 
 ## 5. Feature Selection
 
-Let's implement feature selection to improve model performance:
-
-```python
-# feature_selection.py
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -290,8 +274,7 @@ from sklearn.ensemble import RandomForestClassifier
 import seaborn as sns
 
 def select_features(X_train, X_test, y_train, feature_names, method='random_forest', k=20):
-    """
-    Perform feature selection on the dataset.
+    
     
     Args:
         X_train: Training features
@@ -304,7 +287,7 @@ def select_features(X_train, X_test, y_train, feature_names, method='random_fore
     Returns:
         X_train_selected, X_test_selected: Datasets with selected features
         selected_features: Names of selected features
-    """
+ 
     if method == 'random_forest':
         print("Performing feature selection using Random Forest importance...")
         # Random Forest for feature importance
@@ -355,7 +338,6 @@ def select_features(X_train, X_test, y_train, feature_names, method='random_fore
 
 if __name__ == "__main__":
     # Load preprocessed data
-    # Assuming you've already run data_preprocessing.py
     X_train = np.load('./data/X_train.npy')
     X_test = np.load('./data/X_test.npy')
     y_train = np.load('./data/y_train.npy')
@@ -370,14 +352,12 @@ if __name__ == "__main__":
     
     print(f"Original feature count: {X_train.shape[1]}")
     print(f"Selected feature count: {X_train_selected.shape[1]}")
-```
+
 
 ## 6. Model Training and Evaluation
 
-Now, let's implement and evaluate multiple machine learning models:
 
-```python
-# model_training.py
+# model_training
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -394,8 +374,6 @@ import time
 import joblib
 
 def train_and_evaluate_models(X_train, X_test, y_train, y_test, class_names):
-    """
-    Train and evaluate multiple machine learning models.
     
     Args:
         X_train: Training features
@@ -406,7 +384,7 @@ def train_and_evaluate_models(X_train, X_test, y_train, y_test, class_names):
         
     Returns:
         results: Dictionary containing model performances
-    """
+    
     # Define models to train
     models = {
         'Logistic Regression': LogisticRegression(max_iter=1000, random_state=42),
@@ -533,7 +511,6 @@ if __name__ == "__main__":
     os.makedirs('./plots', exist_ok=True)
     
     # Load preprocessed data
-    # Assuming you've already run feature_selection.py
     X_train = np.load('./data/X_train_selected.npy')
     X_test = np.load('./data/X_test_selected.npy')
     y_train = np.load('./data/y_train.npy')
@@ -544,14 +521,11 @@ if __name__ == "__main__":
     
     # Train and evaluate models
     results = train_and_evaluate_models(X_train, X_test, y_train, y_test, class_names)
-```
 
 ## 7. Deep Learning Model Implementation
 
-Let's implement a deep learning model for anomaly detection:
 
-```python
-# deep_learning_model.py
+# deep_learning_model
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -564,8 +538,7 @@ from sklearn.metrics import confusion_matrix, classification_report, roc_curve, 
 import time
 
 def build_ann_model(input_shape, num_classes):
-    """
-    Build an Artificial Neural Network model.
+    
     
     Args:
         input_shape: Shape of input features
@@ -573,7 +546,7 @@ def build_ann_model(input_shape, num_classes):
         
     Returns:
         model: Compiled Keras model
-    """
+
     model = Sequential([
         Dense(128, activation='relu', input_shape=(input_shape,)),
         Dropout(0.3),
@@ -593,7 +566,7 @@ def build_ann_model(input_shape, num_classes):
     return model
 
 def train_and_evaluate_ann(X_train, X_test, y_train, y_test, class_names):
-    """
+
     Train and evaluate an Artificial Neural Network model.
     
     Args:
@@ -605,7 +578,7 @@ def train_and_evaluate_ann(X_train, X_test, y_train, y_test, class_names):
         
     Returns:
         results: Dictionary containing model performance
-    """
+
     print("\nTraining Artificial Neural Network...")
     start_time = time.time()
     
@@ -742,14 +715,10 @@ if __name__ == "__main__":
     
     # Train and evaluate ANN model
     results = train_and_evaluate_ann(X_train, X_test, y_train, y_test, class_names)
-```
 
 ## 8. Model Deployment and Real-time Detection
 
-Finally, let's implement a simple system for real-time anomaly detection:
-
-```python
-# anomaly_detection_system.py
+# anomaly_detection_system.
 import numpy as np
 import pandas as pd
 import joblib
@@ -793,16 +762,13 @@ class AnomalyDetectionSystem:
         print("Anomaly Detection System initialized successfully.")
     
     def preprocess_data(self, data):
-        """
-        Preprocess the input data for prediction.
         
         Args:
             data: Input data as a dictionary or pandas DataFrame
             
         Returns:
             processed_data: Preprocessed data ready for prediction
-        """
-        # Convert to DataFrame if it's a dictionary
+        
         if isinstance(data, dict):
             data = pd.DataFrame([data])
         
@@ -820,7 +786,7 @@ class AnomalyDetectionSystem:
         return processed_data
     
     def detect_anomaly(self, data):
-        """
+      
         Detect if the input data represents an anomaly.
         
         Args:
@@ -828,7 +794,7 @@ class AnomalyDetectionSystem:
             
         Returns:
             result: Dictionary containing prediction results
-        """
+     
         # Preprocess the data
         processed_data = self.preprocess_data(data)
         
@@ -857,7 +823,7 @@ class AnomalyDetectionSystem:
         return result
     
     def batch_detect(self, data_batch):
-        """
+       
         Perform batch anomaly detection on multiple data points.
         
         Args:
@@ -865,7 +831,7 @@ class AnomalyDetectionSystem:
             
         Returns:
             results: List of detection results
-        """
+    
         # Preprocess the batch
         processed_batch = self.preprocess_data(data_batch)
         
@@ -922,13 +888,11 @@ if __name__ == "__main__":
     if result['confidence'] is not None:
         print(f"Confidence: {result['confidence']:.4f}")
     print(f"Detection Time: {result['detection_time']*1000:.2f} ms")
-```
+
 
 ## 9. Running the Complete Pipeline
 
-Here's a script to run the complete pipeline:
 
-```python
 # run_pipeline.py
 import os
 import numpy as np
@@ -950,9 +914,8 @@ install_required_packages()
 print("\nStep 2: Loading the dataset...")
 from data_loader import download_cicids2017, load_cicids2017
 download_cicids2017()
-# Uncomment after downloading the dataset
-# df = load_cicids2017()
-# df.to_csv('./data/combined_dataset.csv', index=False)
+df = load_cicids2017()
+df.to_csv('./data/combined_dataset.csv', index=False)
 
 # For demonstration, we'll assume the dataset is already downloaded
 print("For this demonstration, we'll assume the dataset is already downloaded.")
@@ -961,71 +924,64 @@ print("Then uncomment the relevant lines in this script.")
 
 # Step 3: Perform exploratory data analysis
 print("\nStep 3: Performing exploratory data analysis...")
-# Uncomment after loading the dataset
-# from exploratory_analysis import explore_dataset
-# explore_dataset(df)
+from exploratory_analysis import explore_dataset
+explore_dataset(df)
 
 # Step 4: Preprocess the data
 print("\nStep 4: Preprocessing the data...")
-# Uncomment after loading the dataset
-# from data_preprocessing import preprocess_data
-# X_train, X_test, y_train, y_test, classes = preprocess_data(df)
-# 
+from data_preprocessing import preprocess_data
+ X_train, X_test, y_train, y_test, classes = preprocess_data(df)
+
 # # Save preprocessed data
-# np.save('./data/X_train.npy', X_train)
-# np.save('./data/X_test.npy', X_test)
-# np.save('./data/y_train.npy', y_train)
-# np.save('./data/y_test.npy', y_test)
-# np.save('./data/class_names.npy', classes)
-# 
+np.save('./data/X_train.npy', X_train)
+np.save('./data/X_test.npy', X_test)
+np.save('./data/y_train.npy', y_train)
+np.save('./data/y_test.npy', y_test)
+np.save('./data/class_names.npy', classes)
+ 
 # # Save feature names
-# pd.DataFrame({'Feature': df.drop('Label', axis=1).columns}).to_csv('./data/feature_names.csv', index=False)
-# 
+pd.DataFrame({'Feature': df.drop('Label', axis=1).columns}).to_csv('./data/feature_names.csv', index=False)
+ 
 # # Save scaler
-# scaler = StandardScaler()
-# scaler.fit(df.drop('Label', axis=1))
-# joblib.dump(scaler, './models/scaler.pkl')
+scaler = StandardScaler()
+scaler.fit(df.drop('Label', axis=1))
+joblib.dump(scaler, './models/scaler.pkl')
 
 # Step 5: Perform feature selection
 print("\nStep 5: Performing feature selection...")
-# Uncomment after preprocessing the data
-# from feature_selection import select_features
-# feature_names = pd.read_csv('./data/feature_names.csv')['Feature'].tolist()
-# X_train_selected, X_test_selected, selected_features = select_features(
-#     X_train, X_test, y_train, feature_names, method='random_forest', k=20
-# )
-# 
+Uncomment after preprocessing the data
+from feature_selection import select_features
+feature_names = pd.read_csv('./data/feature_names.csv')['Feature'].tolist()
+X_train_selected, X_test_selected, selected_features = select_features(
+     X_train, X_test, y_train, feature_names, method='random_forest', k=20
+ )
+ 
 # # Save selected features
-# np.save('./data/X_train_selected.npy', X_train_selected)
-# np.save('./data/X_test_selected.npy', X_test_selected)
-# with open('./data/selected_features.txt', 'w') as f:
-#     for feature in selected_features:
-#         f.write(f"{feature}\n")
+np.save('./data/X_train_selected.npy', X_train_selected)
+np.save('./data/X_test_selected.npy', X_test_selected)
+with open('./data/selected_features.txt', 'w') as f:
+     for feature in selected_features:
+         f.write(f"{feature}\n")
 
 # Step 6: Train and evaluate machine learning models
 print("\nStep 6: Training and evaluating machine learning models...")
-# Uncomment after feature selection
-# from model_training import train_and_evaluate_models
-# results_ml = train_and_evaluate_models(X_train_selected, X_test_selected, y_train, y_test, classes)
+from model_training import train_and_evaluate_models
+results_ml = train_and_evaluate_models(X_train_selected, X_test_selected, y_train, y_test, classes)
 
 # Step 7: Train and evaluate deep learning model
 print("\nStep 7: Training and evaluating deep learning model...")
-# Uncomment after feature selection
-# from deep_learning_model import train_and_evaluate_ann
-# results_dl = train_and_evaluate_ann(X_train_selected, X_test_selected, y_train, y_test, classes)
+from deep_learning_model import train_and_evaluate_ann
+results_dl = train_and_evaluate_ann(X_train_selected, X_test_selected, y_train, y_test, classes)
 
 # Step 8: Initialize the anomaly detection system
 print("\nStep 8: Initializing the anomaly detection system...")
-# Uncomment after training models
-# from anomaly_detection_system import AnomalyDetectionSystem
-# system = AnomalyDetectionSystem(
-#     model_path='./models/random_forest.pkl',
-#     scaler_path='./models/scaler.pkl',
-#     feature_names_path='./data/feature_names.csv',
-#     selected_features_path='./data/selected_features.txt'
-# )
+from anomaly_detection_system import AnomalyDetectionSystem
+system = AnomalyDetectionSystem(
+     model_path='./models/random_forest.pkl',
+     scaler_path='./models/scaler.pkl',
+     feature_names_path='./data/feature_names.csv',
+     selected_features_path='./data/selected_features.txt'
+ )
 
 print("\nPipeline execution completed!")
-print("Note: Some steps were skipped in this demonstration.")
-print("Please download the dataset and uncomment the relevant lines to run the complete pipeline.")
-```
+
