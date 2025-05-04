@@ -49,20 +49,11 @@ def download_cicids2017():
 
     Download the CICIDS2017 dataset.
     Note: This is a placeholder. You may need to adjust the URL or download method.
-    print("Please download the CICIDS2017 dataset from the Canadian Institute for Cybersecurity")
     print("URL: https://www.unb.ca/cic/datasets/ids-2017.html")
-    print("After downloading, extract the files to a folder named 'data' in your project directory")
 
 def load_cicids2017(data_path='./data'):
    
-    Load the CICIDS2017 dataset from CSV files.
     
-    Args:
-        data_path: Path to the directory containing the dataset files
-        
-    Returns:
-        A pandas DataFrame containing the combined dataset
- 
     # List of CSV files in the dataset
     csv_files = [
         Monday-WorkingHours.pcap_ISCX.csv,
